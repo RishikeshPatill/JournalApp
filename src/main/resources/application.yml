@@ -1,15 +1,16 @@
-spring.application.name=Journal App
 
-# Server port (optional)
-server.port=9090
+spring:
+  data:
+    mongodb:
+      uri: ${MONGO_URI}
+      database: JournalApp
+      auto-index-creation: true
 
-#spring.data.mongodb.uri=mongodb://localhost:27017/JournalApp
-#spring.data.mongodb.host=localhost
-#spring.data.mongodb.port=27017
+  application:
+    name: Journal App
 
-spring.data.mongodb.uri=mongodb+srv://RishikeshPatil:Rishikesh%4083123@cluster0.co1tsrz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
-spring.data.mongodb.database=JournalApp
-spring.data.mongodb.auto-index-creation=true
 
-#spring.data.mongodb.username=RishikeshPatil
-#spring.data.mongodb.password=Rishikesh@83123
+server:
+  port: 9090
+  servlet:
+    context-path: /journal
