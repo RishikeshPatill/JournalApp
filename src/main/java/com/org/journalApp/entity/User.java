@@ -1,5 +1,6 @@
 package com.org.journalApp.entity;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
 import org.bson.types.ObjectId;
@@ -23,6 +24,7 @@ import java.util.List;
 
 //pojo class- plain old java object
 @Data
+@Builder
 @Document(collection="users")
 public class User {
     @Id

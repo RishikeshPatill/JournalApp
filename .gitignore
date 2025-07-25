@@ -32,5 +32,9 @@ build/
 ### VS Code ###
 .vscode/
 
-
+### password encoded in the env files ###
 .env
+.env.*
+
+#Ignore test properties (contains test Mongo URI or secrets)
+application-test.properties
