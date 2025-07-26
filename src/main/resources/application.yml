@@ -2,6 +2,12 @@ spring:
   profiles:
     active: dev,test
 
+logging:
+  level:
+    com:
+      org:
+        journalApp: DEBUG
+
 #video-26
 #topic-Spring Boot Profiles
 
@@ -32,4 +38,88 @@ spring:
 #okay so one more annotation is @Active Profile we can use this in test classes over a class
 #okay so in the main method we can use get environment and get profile methods to know the active profile
 #okay so now the one imp thing is that we can use coma separated active profiles to use multiple profiles at the same time in the yml
+
+#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#video-27
+#topic-Logging In Spring Boot
+
+#Introduction--
+#let say your application is deployed on production server and some API is showing unexpecting behaviour while in local it is working fine
+#so if we have done logging in our spring boot application, then in that case we can track the production issues using logging
+#okay so we will run the API and track the logs for the issues, using logging we can troubleshoot and monitor our application
+#three major frameworks are there in spring boot which are used for logging which are--> logback --> log4j2 --> java util logging
+
+#Logging-Frameworks--
+#logback--> default logging frameworks used in spring boot application used for flexible configuration and good performance
+#log4j2--> widely used framework have features like asynchronous logging and support various output formats
+#javaUtilLogging--> included in the JSE part of java development with basic logging feature which are less efficient than other third party logging frameworks, part of jdk
+
+#some-important-info--
+#default logback configuration is embedded in the spring boot libraries and not visible in project's source code
+#to customize the logging configuration we write logback.xml in the resource directory, so when our spring detects
+#this then it uses this file instead of the default logging
+#we can configure logging in spring-boot using the properties and the yaml files and also the logback.xml
+
+#logging-levels--
+#logging levels helps us to categorize the log statement based on the saviour-ity of the log, common logging levels are-->
+#Trace --> Debug --> Info --> Warn --> Error
+#the default logging is enabled for info --> warn --> error
+
+#we use @Slf4j and @Log4j annotation in spring boot to initialize logger instances to our class
+#we use logger to print in files as we cant use the print
+
+#steps to implement logging in spring boot--
+#at first, we create the logger instance in that class, each class has its own private static final logger instance like
+#LoggerFactory.getLogger(this_class.class);make sure to import slf4j.Logger & LoggerFactory
+#okay so after the instance and all now in case of any failure, let say in catch we can call this all levels which are methods
+#using the logger instance, always remember the class in which we are using the logger is the same class we have to pass in the logger
+#in the logger methods we can pass placeholders and pass arguments for it, and also we can pass the exception object too.
+
+#some-important-info-Slf4j--
+#if we use @Slf4j annotation on this class which is a lombok annotation then it
+#injects the logger instance to the class so we can skip manually creating the instance as given below
+#but the instance created using the annotation is log not logger, so use log instead of logger provided by lombok
+#private static final Logger logger= LoggerFactory.getLogger(UserService.class);
+
+#Logging Using YAML file--
+#now for the remaining two levels which are not default configured by the slf4j we have configured them in the application.yml u can check above
+#okay so if I configure error for example in the yml then error and logging levels having more saviour than error all are accessible through the log
+#Most important--> the logs will be printed like in our case we have written in catch, so after the exception only it will print the log otherwise not
+#--------------------------
+#now if we don't want to print error ones then we can write--> logging:level:root:ERROR , so only error logs get printed
+#now if we don't want to print any log then we can write--> logging:level:root:OFF , no logs get printed, similarly we can turn off logs for a class too
+#now if we want to stop a particular package logs then in that case we can write package name in place of root in the above example
+#now all these above things that we did in the yml can bve done in the logback.xml in order for clarity as these files handles all the logs
+
+#Logging Using logback.xml file--
+#the root tag in logback.xml is configuration inside which we write appender and logger configuration enclosed
+#Appender--> now where do we want to print the logs this work is taken care by appender e.g.--> Console Appender --> File Appender
+#appender is nothing but an way to show the output log, inside appender we write file , encoder & pattern enclosed
+#for more u can check the logback.xml everything is there, for each minute log we can refer to video as i have done using appender
+
+#--------------------------------------------------------------------------------------------------------------------------------------------------
+
+#video-28
+#topic-SonarQube/SonarCloud/SonarLint
+
+#Introduction
+#In order to check the code standard, bugs, quality, scalability of the code
+#we use SonarQube which is a container to which we provide our code
+#sonarQube can be deployed on server as similar as mongo db and also on local
+#Or on the sonarCloud server also for that we need to put our code on GitHub
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

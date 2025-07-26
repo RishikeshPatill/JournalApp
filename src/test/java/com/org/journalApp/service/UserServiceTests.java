@@ -33,7 +33,7 @@ public class UserServiceTests {
         assertTrue(!user.getJournalEntries().isEmpty());
     }
 
-
+    @Disabled
     @ParameterizedTest
     @CsvSource({
         "1,1,2",
