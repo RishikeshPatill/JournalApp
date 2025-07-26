@@ -1,16 +1,35 @@
-
 spring:
-  data:
-    mongodb:
-      uri: ${MONGO_URI}
-      database: JournalApp
-      auto-index-creation: true
+  profiles:
+    active: dev,test
 
-  application:
-    name: Journal App
+#video-26
+#topic-Spring Boot Profiles
 
+#generally server and ports are same and can be written here in the general yml okay,
+#but the mongo db server, username & password and other configurations can be different
+#so for these profile specific configuration we write them in different-different  yml files respectively
+#but now just for example we have created multiple ports for different profile as we do not have different properties to configure here
 
-server:
-  port: 9090
-  servlet:
-    context-path: /journal_app
+#so all dev related configuration will be in dev yml similar for the prod & test or other profiles if we have
+#I have run the application for all profile locally, everything working fine.
+#now if we have only dev and prod yml only and then run, then it will not work as it will get confuse which one to pick if not mentioned
+#so for that we can configure the run configuration environment variable like-->spring.profiles.active=dev
+
+#now when we set up like this then it will work in intellij but, on production it will not work
+#now we have run the commands in terminal to create jar using the dev profile using the below commands
+#--> mvn clean package --> -D spring.profiles.active=dev --> cd target --> java -jar jar-name-snapshot.jar --spring.profiles.active=dev
+# above -D flag is used to det jvm properties and in the second way we are not setting the jvm property
+
+#As we can not access production server from our local machine so setting the env var to prod does not make any sense
+#cause companies do white listing of the production server so that only authorized one can access it
+#so that is why we pass the profile with jar on prod as there we can't use the env variables
+
+#now for the production we were using terminal and writing commands so to ease these work we got
+#jenkins which has GUI to do all these things to set profiles create package all these related commands
+#jenkins can be set up on the dev and prod environment depends on the company
+
+#now based on profile we can set that we want to load this bean or not using @Profile annotation on it
+#okay so one more annotation is @Active Profile we can use this in test classes over a class
+#okay so in the main method we can use get environment and get profile methods to know the active profile
+#okay so now the one imp thing is that we can use coma separated active profiles to use multiple profiles at the same time in the yml
+

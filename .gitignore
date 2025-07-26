@@ -37,4 +37,4 @@ build/
 .env.*
 
 #Ignore test properties (contains test Mongo URI or secrets)
-application-test.properties
+application-test.yml
