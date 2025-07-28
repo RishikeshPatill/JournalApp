@@ -103,11 +103,28 @@ logging:
 #video-28
 #topic-SonarQube/SonarCloud/SonarLint
 
-#Introduction
+#Introduction--
 #In order to check the code standard, bugs, quality, scalability of the code
 #we use SonarQube which is a container to which we provide our code
 #sonarQube can be deployed on server as similar as mongo db and also on local
 #Or on the sonarCloud server also for that we need to put our code on GitHub
+
+#steps to implement sonarQube--
+#Download & Extract then go to bean and start sonar by entering the credentials as admin-admin
+#before this check the compatibility of it with our jdk and if needed to set java home variable
+#set that too and then go ahead with the steps mentioned okay then
+#add sonar Dependency compatible with the jdk and sonar version downloaded
+#then in the terminal run mvn clean install sonar:sonar or
+#mvn clean verify sonar:sonar "-Dsonar.login=token here"  "-Dsonar.host.url=http://localhost:9000" -DskipTests
+
+#SonarLint--
+#generally people use sonarLint plugin instead of sonarQube
+#and now they have renamed or combined the sonarlint and sonarQube combined as sonarQube plugin
+#now after installing plugin it starts to show the same suggestion in our code as we used to see in the Qube
+
+#SonarCloud--
+
+
 
 
 
