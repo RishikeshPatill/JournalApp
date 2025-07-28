@@ -8,6 +8,10 @@ logging:
       org:
         journalApp: DEBUG
 
+weather:
+  api:
+    key: 4543f927349b54e67d3f956dcdcc6a02
+
 #video-26
 #topic-Spring Boot Profiles
 
@@ -123,7 +127,18 @@ logging:
 #now after installing plugin it starts to show the same suggestion in our code as we used to see in the Qube
 
 #SonarCloud--
+#it is same like local but this is on cloud we are going to fetch all the app activity on sonar cloud
+#and we can fetch this using github actions okay for which some steps are given adding dependency to pom
+#then creating build.yml in .github/workflows/build.yml like these okay then with each push to GitHub
+#our sonar cloud is also going to pick up the changes and check it standard and code quality of the new commit
 
+#----------------------------------------------------------------------------------------------------------------------------------------------------
+
+#video-29
+#topic-External API Integration
+
+#Introduction--
+#how we can hit the get and post API through code not through postman okay and how we can get the response using code
 
 
 
