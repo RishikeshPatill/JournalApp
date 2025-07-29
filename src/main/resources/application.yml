@@ -8,6 +8,7 @@ logging:
       org:
         journalApp: DEBUG
 
+
 weather:
   api:
     key: 4543f927349b54e67d3f956dcdcc6a02
@@ -147,7 +148,7 @@ weather:
 #then create one package as api.response and create one class API_Name_Response using this class we are going to de-serialization from json response to pojo/java object
 #then we define getter setter for the response class, and also json property annotation to tell how that variable is declared in json response
 #then we create RestTemplateConfig to return the Rest Template object, okay then we create API_Name_Service in that we write the API key provided to us
-#but not hard code it, we define it in yml like api_name:api:key: api_token_here okay and use @Value(${"api_name.api.key=api_token"}) on the api key variable to initialize it
+#but not hard code it, we define it in yml like api_name:api:key: api_token_here okay and use @Value("${api_name.api.key=api_token}") on the api key variable to initialize it
 #then we create one other variable which is the website API inside which we pass our API key and the Query and then we autowired the rest template here
 
 #then we create a method and pass the query parameter in it then here we finalize the web_Api by replacing the API_key and Query parameter using .replace() method
@@ -170,6 +171,41 @@ weather:
 #and also along with these request body we can pass the headers using the httpHeaders.set("key","value"); too in the httpEntity as we do for our authenticated API for authorization
 
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#video-31 & 32 & 33
+#topic-Eleven Labs API / Service Vs Component / @Value Annotation
+
+#Eleven Labs--
+#taught how to use third party API using the documentation, how we can get all the parameters,
+#headers, id's and everything and then pass the cURL and get the response , curl is a cmd tool
+#we can paste curl in postman it will auto configure the request and everything and url, we can also
+#save response to file in postman if any if we want to use the http request in command line then we use curl
+#for more u can refer to the video itself video 31 of the spring boot playlist
+
+#Service Vs Component--
+#both the annotation are used to create bean okay but to differentiate that these class contains business logic
+#we use @Service annotation instead of @Component okay, these increase readability so that's why we use it
+
+#@ValueAnnotation--
+#we define it in yml like api_name:api:key: api_token_here okay and use @Value("${api_name.api.key=api_token}") on the api key variable to initialize it
+#okay please take care if we declare the api_key inside our yml, then we shouldn't push our yml to github, we have test.yml for that keep variable there as we have not pushed it on github
+
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#video-34
+#topic-@PostConstruct
+
+#Introduction--
+#@PostConstruct annotation is applied on method and when that class's bean created at the same time the post construct method get invoked
+#okay so for the frequently used data we create a configuration_collection in our database or write them in yml okay, we treat that collection as a configuration
+#so we can configure all our API keys and values in the database and fetch from there but if we fetch it each time from the database then its not good practice so
+#instead of this we use application cache where we load all this keys and values and use them accordingly
+
+#Application Cache--
+#is a way in which we put frequently used and frequently changing data or configurations in database and load them once in our spring boot application
+#to implement this we create a cache package inside that an AppCache class okay and one map as appCache
+#bro this all video is too complex u can refer to classes AppCache JournalAppConfiguration related classes and WeatherService greetings message and the Placeholders class
+#or after completing this project we will conclude this one video with the remaining concepts that are left to be noted
 
 
 

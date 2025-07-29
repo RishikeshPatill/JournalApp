@@ -3,9 +3,9 @@ package com.org.journalApp.api.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.List;
 
+//this class has nothing to do with the journal app it just was for learning external api integration
 @Getter
 @Setter
 public class WeatherResponse {
