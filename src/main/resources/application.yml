@@ -134,13 +134,42 @@ weather:
 
 #----------------------------------------------------------------------------------------------------------------------------------------------------
 
-#video-29
+#video-29 & 30
 #topic-External API Integration
 
 #Introduction--
 #how we can hit the get and post API through code not through postman okay and how we can get the response using code
 
+#Steps to implement external API--
 
+#GET API--
+#first if sign in and get the free or paid API key whatever u want
+#then create one package as api.response and create one class API_Name_Response using this class we are going to de-serialization from json response to pojo/java object
+#then we define getter setter for the response class, and also json property annotation to tell how that variable is declared in json response
+#then we create RestTemplateConfig to return the Rest Template object, okay then we create API_Name_Service in that we write the API key provided to us
+#but not hard code it, we define it in yml like api_name:api:key: api_token_here okay and use @Value(${"api_name.api.key=api_token"}) on the api key variable to initialize it
+#then we create one other variable which is the website API inside which we pass our API key and the Query and then we autowired the rest template here
+
+#then we create a method and pass the query parameter in it then here we finalize the web_Api by replacing the API_key and Query parameter using .replace() method
+#then we get the response using restTemplate.exchange(final_API, HttpMethod.type, requestEntityForAuth, ResponsePOJO.class);
+#on the response we use .getBody() to get the response and also we can return this response so it can be called using the controller
+#also on the response we can get the http status code and use it however we want got it
+
+#now the final steps as we are getting the response so we will create a GetMapping
+#and if the user is authenticated then we get his username as we used to do
+#then we call the service and the method we created and pass the argument in it
+#and if our response is nested POJO then on that we can call nested methods to get the response
+#and return the response entity as we always do in the controller here is how we get the external API response
+
+#POST API--
+#now the Post call we are making is from postman and we are working in our microservice which the Journal App itself okay so in future it can happen that
+#we create another projects/microservices and have deployed the jar on some server now using the IP and port of that we can send the request
+#then we can consume those post api in the similar way like with our request we can send the data to other microservices
+#everything is same as above just in place of the get call we do post and the request entity is not empty we pass request body in place of that
+#here is how we do it String requestBody= "{---}" then we pass it in the HttpEntity okay then we pass this httpEntity reference to the restTemplate.exchange() here
+#and also along with these request body we can pass the headers using the httpHeaders.set("key","value"); too in the httpEntity as we do for our authenticated API for authorization
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
