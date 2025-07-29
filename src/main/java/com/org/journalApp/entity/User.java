@@ -1,8 +1,6 @@
 package com.org.journalApp.entity;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -25,6 +23,8 @@ import java.util.List;
 //pojo class- plain old java object
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Document(collection="users")
 public class User {
     @Id
@@ -33,6 +33,10 @@ public class User {
     @NonNull
     @Indexed(unique = true)
     private String username;
+
+    private String email;
+
+    private boolean sentimentAnalysis;
 
     @NonNull
     private String password;

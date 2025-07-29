@@ -188,7 +188,7 @@ weather:
 
 #@ValueAnnotation--
 #we define it in yml like api_name:api:key: api_token_here okay and use @Value("${api_name.api.key=api_token}") on the api key variable to initialize it
-#okay please take care if we declare the api_key inside our yml, then we shouldn't push our yml to github, we have test.yml for that keep variable there as we have not pushed it on github
+#okay please take care if we declare the api_key inside our yml, then we shouldn't push our yml to GitHub, we have test.yml for that keep variable there as we have not pushed it on github
 
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -207,7 +207,41 @@ weather:
 #bro this all video is too complex u can refer to classes AppCache JournalAppConfiguration related classes and WeatherService greetings message and the Placeholders class
 #or after completing this project we will conclude this one video with the remaining concepts that are left to be noted
 
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+#video-35
+#topic-MongoTemplate/Criteria/Query
+
+#so what happens in repository is that during run time spring boot injects the implementation of the repository where ever they are used
+#and the second thing these repository use Query method DSL which means we write the method in such a way that it becomes the query,
+#this is query of the method name is made by spring boot at runtime
+
+#Drawaback of query method DSL--
+#We should always know the naming convention otherwise it will not form query okay
+#and also when we write method name we do not get the suggestion, as well it has other limitations too
+#we cant write the complex query using DSL method cause we cant use the Dot operator to know the methods
+#so to write the complex queries we use criteria instead of DSL
+
+#Criteria Method--
+#Criteria and Query goes hand in hand both work together
+#in the method we create one Query Object (import Mongo query) then use addCriteria() method on reference and inside that we use
+#Criteria.anyMethod.againMethod like that we do, now to use this Criteria and Query we use MongoTemplate which is a class,
+#Spring:Data:MongoDB this provides us the MongoTemplate class automatically, so we do not need to configure its bean explicitly
+#so we use mongo template to interact with the database, as it has its multiple methods to work with MongoDB
+#so all the methods of MongoTemplate need two parameters one is query and other is the entity class where collection is mapped
+#listen whenever we use @Data annotation on entity then in that case we have to write the constructor explicitly if we need
+#okay so on the where we can use this method too ne,lt,lte,gt,gte
+#we can create the instance of the Criteria as criteria okay so that we can access more methods which we cant directly using the class
+#okay so all the examples and good practices of the mongo criteria and query and rest template are mentioned in the UserRepositoryImpl
+
+#A good message at the end of this video which is that we can't master this all, we are tend to forget this in a month
+#this all will happen with project requirement and experience, so focus on the core things which is DSA and System Design,
+#after the functional knowledge of the language and framework okay so follow this and grow ahead with this mindset
+
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#video-36
+#topic-Spring-Boot-Email
 
 
 
