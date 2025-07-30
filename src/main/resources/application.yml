@@ -9,10 +9,6 @@ logging:
         journalApp: DEBUG
 
 
-weather:
-  api:
-    key: 4543f927349b54e67d3f956dcdcc6a02
-
 #video-26
 #topic-Spring Boot Profiles
 
@@ -279,7 +275,21 @@ weather:
 #for more u can refer to UserScheduler class and SentimentAnalysisServices in which we are going to put our logic soon which is related to machine learning
 
 #Adding Sentiment Logic--
+#added the complete sentiment logic in the user scheduler and sent mail okay created sentiment enum, and test u can refer to all
+
+#--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#video-39
+#topic-Redis
+
+#Introduction--
+#Redis is a in memory cache means that it stores the data in the ram, cause ram is fast then hard disk,
+#ram because it takes nano seconds to access the data in ram, while disk access take milliseconds
+#we use redis for caching
+
+#redis integration to spring boot application--
 #
+
 
 
 
