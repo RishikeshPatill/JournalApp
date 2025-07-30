@@ -12,9 +12,9 @@ import java.util.Map;
 @Component
 public class AppCache {
 
-    public enum keys{
-        WEATHER_API;
-    }
+//    public enum keys{
+//        WEATHER_API;
+//    }
 
     public Map<String, String>appCache;
 

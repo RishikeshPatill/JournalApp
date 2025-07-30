@@ -3,6 +3,7 @@ package com.org.journalApp.scheduler;
 import com.org.journalApp.cache.AppCache;
 import com.org.journalApp.entity.JournalEntry;
 import com.org.journalApp.entity.User;
+import com.org.journalApp.enums.Sentiment;
 import com.org.journalApp.repository.UserRepositoryImpl;
 import com.org.journalApp.service.EmailService;
 import com.org.journalApp.service.SentimentAnalysisService;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
@@ -36,10 +39,24 @@ public class UserScheduler {
         List<User> users = userRepository.getUserForSentimentAnalysis();
         for(User user: users){
             List<JournalEntry> journalEntries = user.getJournalEntries();
-            List<String> filteredList = journalEntries.stream().filter(x -> x.getDate().isAfter(LocalDateTime.now().minus(7, ChronoUnit.DAYS))).map(x->x.getContent()).collect(Collectors.toList());
-            String entry = String.join(" ", filteredList);
-            String sentiment = sentimentAnalysisService.getSentiment(entry);
-            emailService.sendMail(user.getEmail(), "Sentiment for last 7 days",sentiment);
+            List<Sentiment> sentiments = journalEntries.stream().filter(x -> x.getDate().isAfter(LocalDateTime.now().minus(7, ChronoUnit.DAYS))).map(x->x.getSentiment()).collect(Collectors.toList());
+            Map<Sentiment,Integer> sentimentCounts=new HashMap<>();
+            for(Sentiment sentiment:sentiments){
+                if(sentiment !=null){
+                    sentimentCounts.put(sentiment, sentimentCounts.getOrDefault(sentiment,0) + 1);
+                }
+                Sentiment mostFrequentSentiment=null;
+                int maxCount=0;
+               for(Map.Entry<Sentiment, Integer> entry: sentimentCounts.entrySet()){
+                   if(entry.getValue() > maxCount){
+                       maxCount= entry.getValue();
+                       mostFrequentSentiment=entry.getKey();
+                   }
+               }
+               if(mostFrequentSentiment != null){
+                   emailService.sendMail(user.getEmail(), "Sentiment for last 7 days",mostFrequentSentiment.toString());
+               }
+            }
         }
     }
     //we have scheduled a cron job to auto refresh the app cache fpr every 10 minutes so that if something changed then
