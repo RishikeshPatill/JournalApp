@@ -264,14 +264,22 @@ weather:
 #then we create SimpleMailMessage object then on this reference we can use setTo, setSubject, setText for body and pass the SimpleMailMessage
 #reference in the javaMailSender.send(mail); like this we can send mail and one more we do this all in try catch, okay so the typ of mail here
 #will be JavaMailSender okay, we can use more methods on the mail reference to set the bc and all, and we have successfully tested this, it worked
+#for more details u can refer to the EmailService class that we have created
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-#video-37
-#topic-Cron Job In Spring Boot
+#video-37 & 38
+#topic-Cron Job In Spring Boot/ Adding Sentiment
 
+#CronScheduling--
+#to automate things and jobs we use Cron job and Scheduler in Spring Boot So we create a scheduler package and User Scheduler in it
+#okay inside that we create a scheduler method and write our all scheduling logic that for which user and for what time and interval we
+#want to schedule after doing this all at last we use @Scheduled annotation and pass cron expression in it, we can generate cron expression from cron maker
+#okay so tell our spring boot application that in we have scheduled some methods then we use @EnableScheduling on the Main class, then everything works smooth
+#for more u can refer to UserScheduler class and SentimentAnalysisServices in which we are going to put our logic soon which is related to machine learning
 
-
+#Adding Sentiment Logic--
+#
 
 
 
