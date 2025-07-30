@@ -243,10 +243,32 @@ weather:
 #video-36
 #topic-Spring-Boot-Email
 
+#how we do send email using person email that we are going to implement here
+#Step-1 we add mail starter dependency to pom Step2- is to Autowired the JavaMailSender and
+#to inject the bean at run time into this we need to configure the email in the yml
+#okay so we have configured this in our test yml which we dont push okay has active profile during run so
+#this is what we need to paste in the yml to inject the JavaMailSender reference and create its bean
+#  mail:
+#    host: smtp.gmail.com  -->here it can be smtp.yahoo.com like that u can enter other too
+#    port: 587
+#    username: patilrishi410@gmail.com
+#    password: app password goes here -->u can generate this from your Google security settings
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:      -->this enable the transport layer security which means that all the details will be encrypted during transaction between the app and our email, and we have enabled the encryption that's why port is 587 otherwise it should be 25
+#            enable: true
 
+#now we got the bean injected then we will create a method send email with three params which is to, subject and body
+#then we create SimpleMailMessage object then on this reference we can use setTo, setSubject, setText for body and pass the SimpleMailMessage
+#reference in the javaMailSender.send(mail); like this we can send mail and one more we do this all in try catch, okay so the typ of mail here
+#will be JavaMailSender okay, we can use more methods on the mail reference to set the bc and all, and we have successfully tested this, it worked
 
+#------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
+#video-37
+#topic-Cron Job In Spring Boot
 
 
 
