@@ -279,8 +279,8 @@ logging:
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-#video-39
-#topic-Redis
+#video-39 & 40
+#topic-Redis on Wsl & Redis on Cloud
 
 #Introduction--
 #Redis is a in memory cache means that it stores the data in the ram, cause ram is fast then hard disk,
@@ -290,8 +290,111 @@ logging:
 #redis integration to spring boot application--
 #
 
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+#video-41
+#topic-Kafka Masterclass
 
+#kafka is open source distributed event streaming platform
+#distributed means kafka can run on multiple servers to handle large amount of data, multiple machines will be connected
+#event means data, so data streaming platform, kafka is used tp process the constantly generating data and do constant processing without delays
+#for example let say there is a social media app where people are continuously doing like comment and all the stuff, these all action are event, constantly generating events
+#kafka will collect all these events, and store them temporarily and then distribute them to multiple services, if they want to analyze, can give it to notification service
 
+#kafka ensures flow of data from source to destination smoothly and quickly
+#kafka ensures direct communication with services whoever needs the data
+#direct api calls are synchronous we achieve asynchronous calls using kafka like we put kafka between our two service to get and send the response
+#okay now for example let say 1 million user are liking photo then that number of calls are directly going to the other service, which will be an heavy load on that service
+#after huge load services can be down, so that's why here we put kafka in between which takes the one million data and breaks it and distributes it to multiple server and consumed parallel
+#okay so that's how kafka achieves tolerance , scalability
 
+#Internal working of kafka and setup--
+
+#kafka cluster-- kafka cluster is group of kafka brokers, kafka broker is a server on which our kafka is running, so basically kafka cluster are the group multiple server where kafka is running
+#kafka producer-- writes new data into kafka cluster and these data given by kafka producer to kafka cluster is consumed by kafka consumer, okay we need to write code in kafka producer, we write an action for the data transfer to cluster form producer
+#zookeeper-- zookeeper keeps track of kafka cluster health
+#kafka connect-- if we want to bring any entity data to the kafka cluster then we use kafka connect for that, it brings dat from any file, database or from anywhere without writing any code
+#which is called as declarative integration, okay we declare the things here that we want to get the data from one server to other, okay so we sent the data using source to the cluster from connect to cluster while to retrieve data we use sink
+#kafka stream-- these are some functionalities which we use for dat transformation, like we will pick some data from kafka cluster and we will do some transformation to it then send back the data to kafka cluster
+
+#Download and Install kafka and zookeeper--
+
+# Kafka WSL Command Notes
+
+#Navigate to Kafka folder
+#cd /mnt/d/Imp_Downloads/kafka_2.13-3.9.1
+
+#Start ZooKeeper (must be first)
+#bin/zookeeper-server-start.sh config/zookeeper.properties
+
+#Start Kafka Broker (after ZooKeeper is running)
+#bin/kafka-server-start.sh config/server.properties
+
+#Create a topic named 'my-topic' with 3 partitions
+#bin/kafka-topics.sh --create --topic my-topic --bootstrap-server localhost:9092 --replication-factor 1 --partitions 3
+
+#List all existing Kafka topics
+#bin/kafka-topics.sh --list --bootstrap-server localhost:9092
+
+#Describe topic details (partitions, replicas, leader, etc.)
+#bin/kafka-topics.sh --describe --topic my-topic --bootstrap-server localhost:9092
+
+#Start Kafka producer (send messages to topic)
+#bin/kafka-console-producer.sh --broker-list localhost:9092 --topic my-topic
+
+#Start Kafka consumer (read messages from beginning)
+#bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic my-topic --from-beginning
+
+# Clear the terminal screen
+#clear  # or press Ctrl + L
+
+#kafka topic and partitions--
+
+#when the kafka producer sends the data to broker then it sends the dat in the form of topics, topic is similar to table which means similar type of data is in topic, topic live inside broker, okay topic inside have partitions, producer can send data in two ways in topic and partitions but ultimately it goes in partitions, consumer continuously calls the cluster for the topics to consume data
+#partition--a topic is partitioned and distributed to kafka brokers in round-robin fashion to achieve distributed systems
+#replication factor--a partition is replicated by this factor in another broker to prevent fault tolerance
+#partition is where the actual message is located the final data is located in partition
+#whenever we create a topic we need to specify the number of partition, the number can be changed later, each particle is ordered, immutable sequence of records
+#each message get stored into partition with an incremental id/ off set value, ordering is there only at partition level, means if we want the data to be in order then it must have to be in the same single partition
+#partitons continuously grows as new records are produced, all the records exist in the distributed log file
+#if we send the data along with key then it goes in same partition, it uses hashed key for this otherwise without key it goes in round robin, so we can say key is optional, okay as consumer pulls the dat from all partition at the same time
+#while demonstration it has used "key.separator=-" and "parse.key=true" along with the producer cmd okay and for consumer same key separator and --property "print.key=false"
+
+#consumer offset and consumer groups--
+
+#consumer offset--
+#position of a consumer in a specific partition of a topic, means which message it is reading, offset represents the latest message read by consumer
+#when we create a consumer on kafka then a grp id is created which refers to the group to which it belongs
+#whgen the consumer group reads the message okay which are in partitions, then each consumer keep the track of the offset on which message it is now, as bookmarks
+#all these bookmarks are stored in consumer offset which is a built-in topic in apache kafka which keeps track of the latest offset commited by consumer group for each partition, okay these topic is internal to kafka which cant be read and write directly by clients, these offset info is updated by kafka broker for the clients
+#okay so kafka maintain the consumer offset that data is not lost or duplicated--> __consumer_offset
+#there are separate consumer offset for each group
+
+#how single consumer reads--reads the topic in round-robin fashion, one consumer is single threaded
+#two consumer reads--okay the consumer coordinator divides the topic two both to read the data
+#to join group consumer sends request to the grp coordinator then the grp coordinator decides which partition to be assigned based on current distribution
+#then after this grp coordinator assigns partitions to be consumed, okay partition are assigned in sticky fashion
+
+#we can use commands to list the topic okay use it, similar for consumer group
+#we can stop the consumer using ctrl c, confirm it
+#okay whenever we start a consumer it assigns it a new grp id which we can deny by providing it existing grp id to do grouping, okay we can do these using commands
+#okay to see the number of partition in topic we can use describe topic us it too,
+
+#Segments, Commit Log & Retention Policy
+#segments-messages get append in the partition, so the set of message is called segment, we can define size of segment, we use this in commit log, actually the message get stored in file system, in the config we have these server.properties inside which we have commit log directory, where actual messages are stored, okay specifically in the tmp/kafka_logs contains all .log logs, so all the things produced by producer we gwt there in the logs, we can open this file using the path in our cmd and can see all the data
+#Retention policy-- now we are putting all these data in the log files okay now until when these data will be there is decided by retention policy 1. size based policy and 2. time based policy okay so these all process is done by kafka log cleaner he keeps check on the retention policy of the message and deletes them okay, log file is encoded, producer encodes it and put it here, and the consumer decodes it, by default retention hours iss 168 hours which is 7 days okay similar default size limit is there
+
+# 3-Broker cluster setup
+# okay to start kafka broker we use server start in the bin at cmd, in ubuntu folder and cmd can be different
+#okay the first step to create a broker is to copy paste the server,properties and rename as 1,2,3 okay step 2--> open both the files and then change the broker id which is unique for both, same for the port and logs file, we make unique okay
+#okay then in next step we start the server using different server.properties files that we created, first make sure that one zookeeper for all the instance that we are creating then only they all will be part of the same cluster and will form a kafka broker
+#okay use replication factor & partition while creating, okay replication factor means that topic will be replicated given number of times, okay when the producer sends the message it goes in the form of partition in the topic, and the topic goes to the first broker and then get replicated to the other broker as well, for fault tolerance, if that broker goes down then it can pick up the data from the other broker
+#number of kafka server cells running is the number of brokers okay so the first topic will be given to the leader always okay means let say the broker 1 is leader for partition 3 and the and 2 is for partition 1 then if the message goes to whose partition becomes the broker leader and sends the topic copy's to the other brokers
+#for the newer kafka version after creating server we give bootstrap server, which is in our case will be a list as we are creating a kafka broker so we will pass the three server ports, i guess along with all commands we have to pass all our three servers for the cmd we are using form start
+
+#ISR--in sync replica
+
+#managed kafka cloud--confluent cloud
+#we not have to make all this dirt on our local okay we can us cloud kafka
+#for more we can refer to the video
 
