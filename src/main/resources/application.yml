@@ -398,3 +398,19 @@ logging:
 #we not have to make all this dirt on our local okay we can us cloud kafka
 #for more we can refer to the video
 
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#video-42
+#topic-jwt authentication
+
+#jwt-json web token is a way to securely transmit information between parties as json object , jwt is a compact, url safe token that can carry information between parties, it uses base 64 url encoding , it picks such character in url so that no encoding issue,
+#jwt is a string consisting 3 parts separated by dots, Header-->payload-->signature HMAC SHA256 or RSA
+#payload-payload contains the claim, claims are the statement about an entity,means user metadata
+#signature-- search on chatgpt
+
+#jwt configuration--
+
+
+
+
+
