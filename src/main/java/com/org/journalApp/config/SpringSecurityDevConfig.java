@@ -35,6 +35,17 @@ public class SpringSecurityDevConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers(
+                        "/",                         // allow root path
+                        "/index",                   // if using index.html
+                        "/swagger-ui.html",
+                        "/swagger-ui/**",
+                        "/v3/api-docs/**",
+                        "/v2/api-docs/**",
+                        "/swagger-resources/**",
+                        "/webjars/**",
+                        "/public/**"
+                ).permitAll()
                 .antMatchers("/public/**").permitAll()
                 .antMatchers("/journal/**", "/user/**").authenticated()
                 .antMatchers("/admin/**").hasRole("ADMIN")

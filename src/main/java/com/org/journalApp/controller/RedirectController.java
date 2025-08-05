@@ -7,6 +7,6 @@ public class RedirectController {
 
     @GetMapping("/")
     public String redirectToHealthCheck() {
-        return "redirect:/journal_app/public/health-check";
+        return "redirect:/public/health-check";
     }
 }

@@ -1,4 +1,8 @@
 spring:
+  security:
+    user:
+      name: admin
+      password: admin123
   redis:
     host: ${REDIS_HOST}
     port: ${REDIS_PORT}
