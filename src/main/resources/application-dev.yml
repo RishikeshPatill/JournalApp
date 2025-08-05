@@ -27,7 +27,7 @@ spring:
     name: Journal App
 
 server:
-  port: ${PORT:10000}
+  port: 9091
 
 weather:
   api:
