@@ -1,14 +1,38 @@
 spring:
+  redis:
+    host: ${REDIS_HOST}
+    port: ${REDIS_PORT}
+    password: ${REDIS_PASSWORD}
   data:
     mongodb:
       uri: ${MONGO_URI}
       database: JournalApp
       auto-index-creation: true
-
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
   application:
     name: Journal App
 
 server:
-  port: 9090
+  port: 9091
   servlet:
     context-path: /journal_app
+
+weather:
+  api:
+    key: ${WEATHER_API_KEY}
+
+logging:
+  level:
+    com:
+      org:
+        journalApp: DEBUG

@@ -30,7 +30,7 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public boolean saveNewUser(User user){
         try{
