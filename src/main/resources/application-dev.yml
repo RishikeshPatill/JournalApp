@@ -28,8 +28,6 @@ spring:
 
 server:
   port: 9091
-  servlet:
-    context-path: /journal_app
 
 weather:
   api:
