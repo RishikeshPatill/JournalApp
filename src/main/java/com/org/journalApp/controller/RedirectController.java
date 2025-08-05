@@ -1,5 +1,4 @@
 package com.org.journalApp.controller;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -8,6 +7,6 @@ public class RedirectController {
 
     @GetMapping("/")
     public String redirectToHealthCheck() {
-        return "redirect:/journal_app/health-check";
+        return "redirect:/journal_app/public/health-check";
     }
 }
