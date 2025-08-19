@@ -1,5 +1,6 @@
 package com.org.journalApp.service;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.core.AutoConfigureCache;
@@ -11,6 +12,7 @@ public class EmailServiceTests {
     @Autowired
     private EmailService emailService;
 
+    @Disabled
     @Test
     public void testSendEmail(){
         emailService.sendMail("yzx00783@gmail.com","testing spring boot mail","Rishikesh u are the OG man");

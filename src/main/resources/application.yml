@@ -324,10 +324,10 @@ logging:
 
 #zookeeper-- zookeeper keeps track of kafka cluster health
 #kafka connect-- if we want to bring any entity data to the kafka cluster then we use kafka connect for that,
-#it brings dat from any file, database or from anywhere without writing any code
+#it brings data from any file, database or from anywhere without writing any code
 #which is called as declarative integration, okay we declare the things here that we want to get the data from one
 #server to other, okay so we sent the data using source to the cluster from connect to cluster while to retrieve data we use sink
-#kafka stream-- these are some functionalities which we use for dat transformation, like we will pick some data
+#kafka stream-- these are some functionalities which we used for data transformation, like we will pick some data
 #from kafka cluster, and we will do some transformation to it then send back the data to kafka cluster
 
 #Download and Install kafka and zookeeper--
@@ -363,7 +363,7 @@ logging:
 
 #kafka topic and partitions--
 
-#when the kafka producer sends the data to broker then it sends the dat in the form of topics,
+#when the kafka producer sends the data to broker then it sends the data in the form of topics,
 #topic is similar to table which means similar type of data is in topic, topic live inside broker,
 #okay topic inside have partitions, producer can send data in two ways in topic and partitions but
 #ultimately it goes in partitions, consumer continuously calls the cluster for the topics to consume data
@@ -447,7 +447,7 @@ logging:
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-#video-42 | need to look this again too much complex video, need to understand and take a complete day to process this clearly as did with the kafka
+#video-42
 #topic-jwt authentication
 
 #jwt-json web token is a way to securely transmit information between parties as json object ,
@@ -477,12 +477,10 @@ logging:
 #now we will know all the things return in the jwt util class all the methods okay one by one starting from generate token
 #okay now the generate token method take username as argument okay, and then we create one map which in which we can send our user metadata if we want or it can be empty no issues
 #okay then we call another method which is create token which takes two arguments one is claims(Map) and second is subject(String)
-#in our case username is the subject which we have sent in the method call, then we have called alot of method on Jwts.builder()
+#in our case username is the subject which we have sent in the method call, then we have called a lot of method on Jwts.builder()
 #we can check the jwt util for more details, or also we can refer to the jwt documentation, okay in the method chaining we call signWith(getSigningKeu)
 #okay so in the getSigningKey method which returns the Keys.hmacShaKeyFor(SECRET_KEY.getBytes()) okay where secret key is a private variable which <= 32 bytes
-
-
-
+#u can hit the login api and get the jwt token along with it in return and can use it anywhere to hit the authenticated api
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -502,4 +500,33 @@ logging:
 
 #video-44
 #topic-deployment on cloud
+
+#we have done the deployment on render practically including the docker file so we have practically implemented this one
+#our app is live on one of render url okay so no need to watch the video okay thanks
+
+#---------------------------------------
+
+#video-45
+#topic-Kush-o AI testing
+
+#we will use this when we actually need to write the test cases for our api, or we need to test our api in all p&c
+#if we do not have the tester in our team we have to write the test cases, and can Automate the API testing as well
+
+#-----------------------------------------
+
+#video-46
+#topic-Swagger Integration
+
+
+
+
+
+
+
+
+
+
+
+
+
 
