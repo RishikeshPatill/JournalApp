@@ -8,6 +8,550 @@ logging:
       org:
         journalApp: DEBUG
 
+#video-1
+#topic-Spring Boot Introduction
+
+#Spring Boot is a framework is a framework to build java programming language
+#using spring Boot we create standalone and production grade spring based application that u can just run
+#spring boot is set of tool which helps us to build java based applications
+
+#before spring we used to alot of manual configurations other than business logic just to reduce that manual work spring boot came
+#spring itself reduced alot of biolerplate code and provide alot of features for java applications
+
+#spring features are like creating web applications, working with database, managing transactions but setting up spring project required some manual configurations
+#that's why spring boot came as it provides auto configuration so that we do not need any tomcat server be it because by default it is embedded in spring boot so that our application jar can be deployed on the self contained server which is independent of external infrastructure
+#so that now we do not need to install a tomcat on server , tomcat which is a web server okay which required some configuration
+
+#okay one more thing changed earlier we used to setup the application context manually in the main method in spring now which we dont in spring boot
+#okay now to set the application context in spring boot we use @SpringBootApplication annotation on the main class this single annotation replaces the need for setting up manual spring application context
+#we no longer need to create the application context using AnnotationConfigApplicationContext as Spring Boot handles that behind the scenes
+
+#we use springApplication.run() to start the application and spring boot takes care of configuring the embedded web server and other necessary components
+#the @SpringBootApplication annotation alone brings in lot of pre configured features including automatic component scanning and embedded server configuration, which would have required more steps in a traditional spring setup
+
+#now spring boot contains bean okay now what is a bean ! bean is a java class object which is created only once in the IOC container and managed by it and can be used anywhere in the spring boot application ! okay so the whole codebase can use the once created object as a bean and will not re-initialize it okay !
+#earlier in spring we used to write some code to tell spring how many spring bean are there, where to scan and all okay which the spring boot does automatically with the help of the @SpringBootApplication annotation okay
+#SpringBoot Code requires bean which are kept in Application Context so we can ask ApplicationContext for that bean
+
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#video-2
+#topic-Install Java And Intellij
+
+#in intellij things are bundled so that setting up the project we can download the jdk in intellij
+#it can happen that in our system java is not there okay so to run java cmd on our system we need java installed on our system so whenever we run java commands okay  it checks or the path in the env variables and executes the java.exe
+
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#video-3 & 4
+#topic-Spring Boot Project Setup
+
+#create spring boot project using spring initializer
+
+#In Spring Initializer we select
+#language
+#build tool-->maven-->build tool automate things for us like compile , packaging and run tests for us
+#artifact is project name
+#at last we add dependency--
+#Spring Starter--
+#Spring Web--for API And adds Default tomcat Server
+#and depends on the use case what we want okay !
+
+#packaging
+#jar-java archive--we can run jar using cmd
+#war-Web Application Archive--we need to deploy the war file on external web server in order to run
+
+#then we can open the project in our intellij okay
+#it can happen we encounter some issue when we open the project in intellij okay then we should check in the project structure that java version is selected
+#now we can start writing our code in src and run when run we can see longs and spring logo
+
+#as we have added the web dependency then our project will start on the tomcat server and some port with no context path okay which we can set in the yaml file okay
+#then we can check on our local host the app is running
+
+#context path--we can say it is our app name which is going to be prefixed before every API end point
+
+#-------------------------------------------------------------------------------------------------------------------------------
+
+#video-5 & 6
+#topic-Install Maven
+
+#okay now to install maven we need to have java installed on our system okay
+#we can check for both in our cmd using --version
+#okay if not found then we can install maven form its official website in the zip then in the env var we can set the maven home in the system variables and in the path as well okay
+
+#maven is a build automation tool and manages dependency
+#we can see in our project a pom.xml which contains dependencies as well okay now if we want to use any external library then we have to download and import that jar of that library
+#but there is simple way to use external library which is maven dependency so we can search for the dependency select version and can add that dependency in our pom xml and we are ready to use the library
+#okay as soon as we add the dependency in pom xml and maven reload then maven automatically download the jar for that using that dependency for that library
+#okay all dependency have coordinates as gav--which is group id-->artifact id-->version
+
+#maven has a build life cycle which contains phases as--
+#validate--means check pom is okay or not
+#compile--means compiles the source code
+#test--means test the compiled source code of the project without requiring the code to be packaged or deployed
+#package--means take the compiled code and package it in the distributed format like jar or war
+#verify--integration testing
+#install-means install the package in into the local repository for use as a dependency in another project
+#deploy--means done in the build environment copies the final package to remote repository for developers and projects
+
+#okay in case if we do not have maven installed on the system we can use maven wrapper provided by spring boot
+#maven commands--
+#mvn validate
+#mvn compile
+#mvn install
+#mvn deploy
+#mvn clean-- used to clean all the things form the target
+#mvn package--validate--compile--test--and make jar okay
+
+#we can use ctrl+l to clear terminal
+#mvn install--will sent a jar to .m2 repository on our local okay so this is the .m2 repository where maven keeps all the data including the jar files of that dependency and also the put s the dependency in the m2 in case if we use that dependency in other project than it picks it up form m2 and will not download it form the internet
+
+#-------------------------------------------------------------------------------------------------------------------
+
+#video-7
+#topic-Spring Boot Application structure
+
+#in any project if there is pom.xml is there then that project is maven project where maven is build tool
+# .idea file--okay this file is related to intellij have data regarding it
+# .mvn folder--okay this folder is for maven wrapper if we use maven wrapper then this jar is going to be used
+# src folder--consist main and test--main will contain our functionality and test will contain test relates to that functionality
+# src/main--contain java and resource folder okay in java we will write code and in resource properties will be there and static will also be there in resource
+# .gitignore file-- those file which we do not want to push
+# application.properties-- here we can write our configuration of the server
+# templates is also used when we used to create the html pages in spring boot, but now we don't
+
+#in java folder we have main application class form where the app starts
+
+#pom.xml--project object model xml -- this file contains all the information of our project it tells us which external libraries our project will use
+#okay in project is then main tag which consist other tags as dependency and | plugins-->are inside the build tag which contains plugin like spring boot maven plugin which helps us to package our code in jar or war
+#parent tag is also there in project -okay these tag is added by the spring web dependency that we added in spring io okay these parent consist of spring boot starter parent dependency which tells our project to inherit required dependency
+#okay in these parent we can give any parent so that our project can inherit the propertied dependencies and the plugins
+
+#okay now the project tag consist the version tag properties tag where we can describe properties like version okay let say if our parent dependency and plugins are using another version of java then
+#we can override those version here by declaring them in our properties files
+#more specifically we do versioning to tell the maven compiler plugin that my source code is in this version okay same thing tells maven that when u will compile and make the byte code then it should be compatible with version 8
+
+#okay now the jar which is created here in the target is called fat jar as it does not only contains the source code but also keeps all the dependency in this target jar
+#now there are is also original jar is also there which just contain all the compiled code only not rest of the things which are there in the .jar file
+#okay so that's why this is called self contained jar as it does not require anything to run this even the server are embedded okay
+
+#okay when we do mvn package then it does repackaging as at first it creates the original.jar and then .jar
+
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#video-8
+#topic-Spring Boot Application Internal Working
+
+#Spring boot provides us the bean functionality which externalise the object creation, hence ioc-inversion of control
+#spring provide ioc container which manages all the beans of our project
+#application context is a way to achieve IOC container okay now the question is how this ioc container keeps all the classes inside it so it does this by scanning all the classes in the project who are annotated as a bean
+
+#@SpringBootApplication-is a annotation now annotation is something which tells us the information about that class
+#we use this on main class only
+#SpringBootApplication-->@Configuration-->@EnableAutoConfiguration-->@ComponentScan
+#@Configuration--we know about this very well we use this on class which return bean from method
+#@ComponentScan--okay it asks spring to scan for beans then where this class is that package become the base package of the project
+#@EnableAutoConfiguration--does the configuration automatic  let say i want to use mongo db and we put the mongo db dependency in pom xml and given the server and port, password in the properties so it tells spring boot to take crae of connection and all we not need to do anything manually
+
+
+#@RestController--is a specialized Controller means controller + some other things
+
+#----------------------------------------------------------------------------------------------------------------------------------------------
+
+#video-9
+#topic-Rest API
+
+#Spring Web-- is the dependency that we need to create REST API
+#REST API--Representational State transfer API--application programming interfaces
+
+#let say i am person i want to access something on server then how can i access it so i can access it using Rest API
+#in application our phone will send the request to server and can use the service okay there are alot of services which are exposed as end point on server okay on this server on which we have our jar deployed
+
+#what does it mean when we say we are creating Rest Api-- we mean http_verb+url
+
+#Controller--are special type of components which handles our https requests
+#let say we  have our app jar on server then we hit one API url using the http verb right then it goes to the controller mapped to that end point and calls the service which is in  that controller
+#okay remember whenever we create a spring boot application then we should create a health check controller to check the app health weather everything is working and the app is fine which return an message
+
+#now the additional feature of the @RestController other than the Component is like for all the end points or url inside the class whatever they return this annotation will convert to json automatically
+#but we have to map those methods with the end point using html verb mapping annotation
+#okay also we can check our API end point and hit it using postman we can give the server:ip address:port:application context if any : then our end point we want to hit okay if we hit the end point form browser then it will be of get for default
+
+#okay we can also create entities for that we create a pojo--as we declare instance variables in the entity then create getters and setters for the entity
+#@RequestMapping--we use this annotation with the @RestController if we want to give class path to get to the end point so what will happen now this request mapped url will be prefix of all the end point accessing end point of this class
+#basically request mapping adds mapping on the whole class okay
+
+#if we want to send our data with the post request then we send that data in body as json object based on the pojo
+#okay now how the data is going to come in the post request endpoint for that we have to use
+#@RequestBody--okay now this annotation takes the data from the request that we hit form the postman and passed in the body
+#now this annotation will convert the data form request to java object so that we can use that data in our java code
+#along with request body in order we want to create to java object right so we need to give the entity class okay and variable name we can give anything we want
+#now we can use the data we sent from the request in our data
+
+
+#Mappings-->Get-->Post-->Put-->Patch-->Delete
+
+#okay let say if we want to get by id then we use @PathVariable or @RequestParam okay let say we use request param in url as ?name= like that we do or if we pass the id as /id then it is a path variable okay in code we can store the path variable as id/{myId} in the mapping to use this my id we use @PathVariable as a argument
+#okay Now to update in the put mapping we have to pass the path variable and the request body as well as we want to update
+
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#video-10 , 11
+#topic-MongoDB Installation & key concepts of mongo db
+
+#we need to download mongodb atlas msi okay
+#then cmd run as administrator run--> net start service_name | net stop service_start
+#now to use queries we need mongo shell then after setup goto mongosh.exe and give the connection string
+
+#for more we can see the tutorial video 10 for installation
+
+#mongo db is a non-relational database in which we store the data in the form of object not in table and rows okay
+#mongodb consist collection and fields inside it and documents as rows here | as in my sql it was table and columns and rows similar
+
+#overview of mongodb--
+#show dbs--tells us database
+#use school--will automatically create a school database on the fly
+#show collection--will show how many collection are there in this database
+#okay now db.schools.insertOne({//here we pass the json object})  // okay db means current database and .schools if it exist then insert into it and if not then create the schools collection okay and then insert one document in the collection
+#okay now if we want to get the documents of the collection then we use find() on collection for example db.students.find() and also find().pretty()
+#okay if we want to filter base on name then we can give json okay for example db.students.find({name:"Ram"}) similarly we can use deleteOne({//give json here})
+#this is not compulsory to know all about mongodb as we are going to do everything using spring boot
+
+#---------------------------------------------------------------------------------------------------------------------------------
+
+#video-12
+#topic-ORM | JPA
+
+#ORM-Object Relational Mapping is a technique used to map java objects to database tables in relational database
+#okay it allows developers to work with databases using object-oriented programming concepts, making it easier to interact with relational databases
+#basically the meaning is because of orm now we can do changes on our class and it reflects in our database
+
+#for example--
+#consider a java class User and a database table users okay now the ORM framework like hibernate can map the fields in the user class to columns in the users table making it easier to run insert update and retrieve and delete records
+
+#JPA--Java Persistence API-- persistence meaning permanently store the data and API means set of rules
+#basically JPA provides set of rules using which we can achieve the ORM || JPA includes interfaces and annotations that you use in your java classes, requires a persistence provider (ORM tools) for implementation
+
+#to use JPA we need persistence provider/orm tools -->
+#persistence provider is a specific implementation of JPA Specification : example of JPA persistence provider are Hibernate, Eclipse Link, Open JPA, these providers implement the JPA interfaces and provide the underlying functionality to interact with the databases
+#okay ofr one jpa interface there can be any implementation like hibernate, open jpa and all
+
+#Spring Data JPA--
+#is built on top of the JPA specification, but it is not a JPA implementation itself. instead, it simplifies working with JPA by providing higher level abstractions and utilities,
+#However, to use Spring Data JPA effectively you still need a JPA implementation, such as hibernate, eclipse link, or another JPA-compliant provider, to handle the actual database interactions
+
+#note--
+#JPA is primarily designed for working with relational databases, where data is stored in tables with a predefined schema, mongoDB, on the other hand is a NoSql database that uses a different data model
+#typically based on collections of documents, which are schema-less or have flexible schemas, this fundamental difference in data models and storage is why JPA is not used with mongoDB
+
+#mongoDB--
+#in case of mongo db you dont have a traditional JPA persistence provider. MongoDB is a NoSQl Database so here Spring Data MongoDB serves as the persistence provider for mongoDB, it provides the necessary abstractions and implementations to work with MongoDB in a Spring Boot Application
+#so when we use the Spring Data MongoDB dependency then whole code get injected now we can work with mongoDB
+
+#now to work with database there are two ways first is native Query and second is criteria and Query okay these are the two ways to interact with database when using Data JPA for relational dtabases and Spring Data MongoDB for MongoDB database
+#Spring Data JPA is a part of Spring Framework that simplifies data access in java applications, while Spring Data mongo db provides similar functionality for mongoDB
+
+#QueryMethodDSL--native query-->is a simple convenient way to create queries based on method naming conventions, while the Criteria API--offers a more dynamic and programmatic approach for building and programmatic approach for building complex and custom queries
+
+#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#video-13
+#topic-mongoDB Integration in Spring Boot Application
+
+#now when we have added the Spring Data Mongo DB dependency and define the server, IP and port in the yaml then the spring boot auto-configuration automatically makes the connection with mongo db
+
+#then on terminal we can write mongosh cmd then it gives us the connection string okay as we have started our mongosh.exe now we can run cmd anywhere in the terminal
+
+#spring.data.mongodb.host=localhost  // here we can write the IP address
+#spring.data.mongodb.port=27017
+#spring.data.mongodb.database=DB_name // okay there can be many database on the above server, that's why specific database name
+#spring.data.mongodb.username=username
+#spring.data.mongodb.password=password // okay if we authenticated then we use username and password
+
+#okay now software development best practice tells that we first need to create service then use that in controller we write all the business logic in the service
+#controller will just create end point and call service which is a java class || now the best practice is controller-->service-->repository
+#okay now next we have to create one package as repository in which we are going to create interface okay as we are using mongo db right
+#so as Spring Data Mongo DB has given us the interface as MongoRepository okay so now we extends all the interfaces that we are going to create in the repository package then we will extends it with MongoRepository interface which has a lot of methods that we can use
+#okay so these interface does standard crud operation okay these interface takes two arguments first is the entity and second is object id okay and the class that we have passed here in the mongo repo we have to map it with collection which is inside our db then we have to do the orm in the pojo
+#we use @Document(collection=="collection_name" // okay if we do not give the collection name then it will look for the class name in the database) tells spring that this entity is mapped with mongo db okay and we use @Id which is an object id for the entity
+#okay as our repository is an interface and we use it in service then we get its implementation of the repository during run time which spring gives us
+#now when we have autowired the repository in the service then we can use the crud methods here in the service as we got the implementation of the repository interface which extends the mongo db interface which somewhere contains all the crud operations so that is why we are able to use save and other method in the service as well
+
+#okay next we can call our service in the controller and injects the service in the controller then in the controller we can call that method of the service
+#okay after calling all the endpoints in the postman we can see the changes in the mongo shell terminal
+
+#db.collectionName.deleteMany(); to delete the collection
+
+#ObjectId datatype is BSON
+
+#okay like if we want to set the date then we can do it in the controller itself using the entity reference passed as a request body using the setter
+
+#in this video he taught how to debug and step over and check our code
+
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#video-14
+#topic-response entity
+
+#now response entity concept came because let say if the user client sent a request to the server and we have our jar deployed on the server so in case any error occurred on server then how the user will get to know so that's why we use response entity in order to tell the error response using http codes
+#okay with the help of this code user can get to know what activity happened on the server so along with response we can also send http status code--which is a 3 digit numeric code returned by web server as a part of the response to an http request made by a client
+#http codes are used to covey information about the results or status of the requested operation
+
+#https status code are grouped in 5 categories based on their digits
+#1xx--informational-->this code tells us that server have received the code and processing the request
+#2xx--successfully-->tells us that request is received by server successfully and giving the required resource
+#200--OK--means understood and giving the resource
+#201--Created--the request has been fulfilled and a new resource has been created
+#204--No content--the request was success full but there is no response body used for deletion request response
+
+#3xx--status codes indicates that we need to take further action to complete the request these are used when the client needs to take additional steps to access the requested resource
+#301--moved permanently--the requested resource has been permanently moved to different url
+#302--found--the requested resource has been temporarily moved to a different url
+#304--not modified--the clients cached version of the requested resource is still valid so the server sends this status code to indicate that the client can use its cached copy
+
+#4xx--client error--this error code indicates that there was an error on the client's part such as malformed request or authentication issues
+#400--bad request--the server can not understand or process the clients request due to invalid syntax or other client side issues
+#401--unauthorized--the client needs to provide authentication credentials to access the resource
+#403--forbidden--the client is authenticated but it does not have permission to access the requested resource
+
+#5xx--server error--these codes indicate the error is on server part while trying to fulfill request means something broken in the app
+#500--internal server error--a generic error message indicating that something went wrong on the server and the server could not handle the request
+#502--bad gateway--the server acting as a gateway or proxy received an invalid response form an upstream server
+#503--service unavailable--the server is currently unable to handle the request due to temporarily overloading or maintenance
+
+#ResponseEnttity--is a java class which is part of spring the spring framework and is commonly used in spring boot application to customize the HTTP response
+#it provides methods for setting the response status, headers and body, u can use it to return different types of data in your controller methods, such as json, xml or even html
+#you can use generics with response entity to specify the type of data u are returning
+#okay generally we return new instance of response entity with response and http status code, we can also return wildcard char in the response entity whenever we are not sure of the return type
+
+#--------------------------------------------------------------------------------------------------------------------------------------------
+
+#video-15
+#topic-Lombok
+
+#Lombok is a popular library in java ecosystem often used in spring boot applications, it aims to reduce the boilerplate code that developers have to write, such as getters setters and constructor and more
+#lombok achieves this by generating this code automatically during compilation based on the annotation on the classes
+
+#step 1 is to add the dependency in the pom then next we need to configure the lombok plugin then we are good to go
+
+#@Getter-->@Setter-->@NoArgsConstructor-->@ArgsConstructor-->@Equals-->@toString-->@Hashcode-->@Slf4j-->@Builder
+#@Data for all
+#internally when we use annotation, then at compile time maven check and create that thing in byte code
+#lombok generates all these methods as bytecode based on annotations used in your code, this generated code is added to compiled class files
+#the java compiler compile all the classes and the generated code this means the generated methods also become the part of .class file
+#so when we run our applications the generated code is available for use just like any other method
+#lombok has an annotation processor which scans the annotations and generates the code
+
+#-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#video-16 , 17 , 18
+#topic-Mastering MongoDB Relationships in spring boot || Transaction Management || MongoDB Atlas
+
+#@Indexed(unique==true)--using indexing we can enhance the searching on that field, okay just by this user will not be unique and indexing will happen for that--> we add spring.data.mongodb.auto-index-creation=true in our properties file
+#@NonNull--on the field we use if we do not want that field to be null, this is a lombok annotation so annotation processor will keep check for this if null then null pointer exception
+#@Id--for unique id the primary key of the table, it can be of any data type like ObjectId, String, Long like this
+
+#now how to connect to collections in mongo db using Spring Boot
+#for this we have to use @DBRef-->this works as foreign key okay if in the user entity we have a list of journal entries mapped with @DBRef then now what we did is we created the journal entries reference in the user entity now the list which is mapped will contain the reference/objectId of the journal entries from the journalEntries collection that is in our mongodb database
+#@DBRef--its meaning is this that in users pojo it will keep journal_entries reference--> this will not automatically keep the update the users journal entries that we have to using API okay along with saving the journal entries in the collection we have to save the reference of that entry in the user and save the user
+
+#during deserialization, we require no args constructor on that entity, deserialization--means Json to Pojo, okay whenever we are sending post request form postman then we are sending some json data ultimately to pojo
+
+#okay in relational database we do cascade delete but in mongodb we have to do it manually
+#now to avoid inconsistency in data in the database we use transaction if it gets saved then all collection or exception occurred then rollback
+
+#TransactionManagement--
+#@Transactional we use on method basically on service methods--this annotation ensures that either everything get commited or rollback
+#alone @Transactional on service method will not work along with this we have to put @EnableTransactionManagement on our main class which tells spring boot that scan all the methods annotated with @Transactional and Spring Boot will create a transactional context for each method separately which means a container which handles all the database operation which are inside that method if any operation fails then that transaction get rollback-->thats how we achieve atomicity and isolation in spring boot
+
+#now who will do all this work related to transaction-->all this rollback and commit okay of these all we need a transaction manager which is an interface okay so we have on implementation of platform transaction manager interface which is mongo transaction manager--> for this we need to configure its bean so that spring boot get to know this that this is the manager
+
+#     public PlatformTransactionManager add(MongoDatabaseFactory dbFactory){
+#     return new MongoTransactionManager(dbFactory);
+#     }
+
+#MongoDataBaseFactory is an interface which we use for all database operation related to MongoDB
+#okay the method name not matters because spring boot will look for the bean which is providing the implementation of PlatformTransactionManager
+#for transaction to happen in mongo db replication is mandatory of mongodb instance, now here the need of mongodb Atlas which is a cloud service which manges our mongo db database does this all replication and all which takes effort to run on local
+#okay so we not need to create any replica on local when we have hosted our database on cloud
+#okay always use try catch and throws while working with @transactional so that it gets to know that exception occurred
+#simple mongo client factory is the implementation of mongo database factory which contains all the methods
+
+#MongoDB Atlas--
+
+#we can watch the tutorial for this--> as we just need to add the uri in our properties file and when we run the application we are able to browse the collection
+#okay that's how our application is running on local but the server is on aws cloud as atlas is their product
+
+#--------------------------------------------------------------------------------------------------------------------------
+
+#video-19 , 20, 21
+#topic-spring security
+
+#remember we do not send the username and password in path parameter or request parameter in the end point, we do that by spring security
+
+#Spring Security-->is a Security framework in spring which often used in spring boot applications for authentication and authorization
+#authentication--the process of verifying user's identity--means checking for the access-->means does the user which is requesting the service using the end point does have the access to that end point or not || a user can be authenticated using the right credentials
+#authorization--the process of granting or denying access to specific resource or actions based on the authenticated user's roles and permissions--means if the user have access to that resource but what permissions does he have regarding that resource || like do we have the read access or write access or delete access like that
+
+#Spring Security Steps--
+#add the Spring Boot starter security dependency
+#once the dependency is added then automatically spring boot autoconfiguration feature will apply security to spring boot application
+#by default spring security uses http basic authentication-->username and password-->with every request
+
+#Basic Authentication--means that client sends an authorization header which is a : basic encoded string the server decodes the string, extracts the username and password verifies them, if they are correct access is granted, otherwise an unauthorized response is sent back
+#encoded string means the username:password is encoded in base64 by default all end points will be secured, spring security will generate a default user with random password which is printed on console logs when application started
+#u can also configure the username and password in application.properties file-->spring.security.user.name=name-->spring.security.user.password=password
+
+#customize authentication--
+#okay now we can access the end points using the user and password printed in the logs now the one user can access all okay but to make user specific authentication we have to customize
+#we will create a security config which is a security configuration class which gives us the control that which end points we want to secure, because by default in basic auth all the end points get secured that too with the same user
+#okay our security config extends web security configurer adapter utility class and we use @EnableWebSecurity-->this annotation tells the spring that u enable the web security support, this is what makes your application secure, its used as a conjunction with @Configuration annotation
+#okay we have already added the spring security dependency which enables security in our application, but the above annotation additionally tells the spring that i am going to customize the spring security
+#webSecurityConfigurerAdapter is a utility class in the spring security framework that provides default configurations and allows customization of certain feature, by extending this u can configure and customize security of your application
+#the above utility class contains a lot of methods to configure the spring security-->okay so basically we do override the configure method and write our customization
+#the http configure methods provide a way to configure how request are secured, it defines how request matching should be done and what security actions should be applied
+#okay now our configure method takes the HttpSecurity object argument using which we can define which request we want to authenticate and how
+
+#http.authorizeRequests()-->this tells spring to start authorizing the request
+#.antMatchers("/hello").permitAll()-->this part specifies http request matching the path /hello should be allowed for all users weather authenticated or not
+#.anyRequest().authenticated()-->this is a more general matcher that specifies any request(not already matched by previous matchers) should be authenticated, meaning users have to provide valid credentials to access these end points
+#.and()-->this methods helps to join several configuration, it helps to continue configuration on the root
+#.formLogin()-->this enables form based authentication. by default, it will provide a form for the user to enter the username and password, if the user is not authenticated and try to access the secured endpoints then they will be redirected to the default login form
+#when we use the .formLogin() method in our security configuration without specifying the .loginPage("/custom path"), the default login page becomes active
+#Spring security provides an inbuilt controller that handles the login path, this controller is responsible for rendering the default login form when a get request is made to login
+
+#by default spring security also provide the logout functionality when .logout() is configured, a post request to  /logout will log the user out and invalidate their session
+
+#Basic authentication by its design is stateless--> means it does not manage a state that is why with every request we have to send the username and password, meaning every request is independent
+#some applications do mix basic authentication, with session management for various reasons, this is not a standard behaviour and requires additional set up and logic, in such scenario once the user is authenticated we store that session in session cookie and use that for other request by that user
+
+#Despite being stateless spring security still  manages the session across multiple request
+
+#Session Creation--after Successfully authentication, an http session is formed, your authentication details are stored in the session
+#Session Cookie-- a jession id cookie is sent to your browser, which gets sent back with subsequent requests, helping the server recognizes your session
+#Security Context--using the jession id, Spring Security fetches your authentication details for each request
+#Session timeout-- session have a limited life, if u re inactive this past limit you are logged out
+#logout--when logging out your session ends, and the related cookie is removed
+#Remember-me--Spring Security can remember you even after the session ends using a different persistent cookie(typically have a longer lifespan)
+
+#conclusion is that spring security leverages session and cookie, mainly jessionid to ensure you remain authenticate across the requests
+
+#now to create specific user authentication--we want our spring boot application to authenticate user based on their credentials stored in the mongodb database
+#this means that our users and password both hashed will be stored in mongo db, and when a user tries to login, the system should check the provided credentials against what is stored in the database
+
+#Steps to enable authentication--
+#a user entity to represent the user data model
+#a user repository to interact with user in mongo db
+#user details service implementation to fetch user details
+#Security config to configure the security in spring boot
+
+#for authorization, we define roles in the user entity
+
+#in spring security there is an user details service interface which we needs to implement which is the 3rd step which have loadbyusername() method-->now to use this we create a UserDetailsServiceImpl which will be used in authentication
+#and we will override its method here in this implemented service okay here in the load by username we will call the find by username method of userRepository and and if fount then we will create the userDetails object using builder() and return it if not found username then we will throw username not found exception which is also provided by spring only
+
+#then we will again override the authentication builder manager configure method in our security config okay also we will return here the user service implementation by autowiring it
+#specifically we will write this in the configure method-->auth.userDetailsService(userDetailsServiceImpl).passwordEncoder(encodedBcryptPassword());-->also in password we will pass this method-->public PasswordEncoder encodedBcryptPassword(){ return new BcryptPasswordEncoder();}
+#the above method converts the password to hash/to a randomize string okay when we will hit the end point with username and password it will first check the user details implementation and create a user details object then next we will use it in security config then password encoding happens using encode() method same we so in the user when we save the user in the user service
+
+#by default in spring boot http.csrf().disable()-->cross site request forgery is enabled-->when this is enabled then spring security expects us to send the csrf token which we do not have sent that is why disable it, as our api is stateless and we will make server to server calls that's why we disabled it
+#okay basically csrf is a cyber attack in which we get tricked by some malicious website or program to submit a request which we not wanted to send
+#okay for example let say we have two tabs opened one is bank  transaction and other is malicious website or program, okay let say if u tap any button on malicious website then hacker can use our cookies in which our session details is there for the bank website and can call any api he wants to make the transaction
+#okay so that is why we make our api as csrf enabled so that if any one else sends the request it will ask for the csrf token and they will get forbidden
+#attacker can not send the csrf token as it is embedded on the form, in the hidden field so that it does not get stored in the cookies
+#okay as we are going to make server to server call then there is no need to take care about the cookies we can also disable the spring security session cookies which spring security manges for our all requests
+
+#okay now when we are going to hit the authenticated request, then we are going to pass the username and password in the basic auth, along with our request, then how we are going to get that in our controller we can get that in our controller using SecurityContextHolder which stores the details of the user which gets authenticated okay we use getContext().getAuthentication().getName(); okay to get the authenticated user details okay, the user came to security context holder after authentication, the password is matched in the security config configure method defined
+#everything matching password and all will be handled by spring security
+
+#-----------------------------------------------------------------------------------------------------------------------------------------
+
+#video-22, 23
+#topic-Role Based Authorization || properties and yaml files
+
+#how to set role based authentication in spring security
+
+#in the spring config configure method we use .antMatchers("/endpoint").hasRole("ADMIN") or hasAnyRole("DOCTOR","PATIENT","USER") means all the request are authenticated and authorised do person with this role that's it
+#how this is working okay we have set our first configure method okay and also have the second configure method which check the credentials/authentication of the person okay using the authentication manager builder-->then it check the user is authenticated then now he can access teh requested end point based on role, now we pass our UserDetailsServiceImpl class instance in the second configure right, the  class contains load by username method which return a user details object in which we set roles for the user, and also we have authenticated the end point on the basis of role then spring security automatically checks for this role thing and authorize the user and gives the user to security context holder
+
+#properties and yaml file--
+
+#how spring boot application reads the data from application properties
+#classpath is just a list of jars and directories which is used by jvm
+#jvm basically requires only bytecode which is kept in classpath
+#so classpath is just a way to tell jvm here are the things u can search here
+#classpath contains .class files-->jar files-->configurations
+
+#okay now how does spring boot finds the application.properties basically it is kept inside src/resources so it is also stores as .class files in the jar so Spring boot automatically finds it same with our pom.xml and other folders
+#sysntax of application.properties is key=value
+#second way of configuring properties is yaml file--yaml aint markup language
+#okay why yaml file over properties because, in properties file we have to write same thing repetitively, whereas yaml file use indentation, in which same properties we write once in indentation
+
+#command line has more priority then application.properties and application.properties has more priority then application.yml
+
+#okay so there are total 3 ways to define properties in Spring Boot Application
+
+#appliaction.properties-->application.yaml-->command line arguments==>--property=value==>for this we have to run project through commands==> java -jar jar_name_snapshot.jar --property_goes_here=value
+
+#we can also give the properties in the program arguments --property=value in the run configuration of the project
+
+
+#----------------------------------------------------------------------------------------------------------------------------------
+
+#video-24, 25
+#topic-junit testing || Mockito
+
+#Junit--multiple components/functions individual testing is called is unit testing okay so basically there is a framework in java as junit which is used for unit testing in java
+#Steps for unit testing-->first of all we add spring boot starter test dependency with scope test means add use this dependency while testing only-->inside spring boot starter dependency there are many dependency but for junit we have junit jupiter
+
+#okay by naming convention we use tests as a suffix on the classes we want to test and create a similar package and class structure as we have above and for the methods we add test as prefix on the method
+
+#@Disabled
+#ways to test method in junit--
+#@Test--we use it on method for no argument test
+#@ParameterizedTest--we use it for argument test-->used with CsvSource({argument goes here})-->CsvSourceFile, can also use @ValueSource(strings={comma separated arguments goes here}) we can give other datatype also-->@EnumSource-->@ArgumentsSource and provide our custom arguments using class which extends ArgumentsProvider we can override the stream method
+
+
+#methods used in junit testing--
+#assertEquals(expected,a+b)--like this anything can be argument we want to compare
+#assertNotEquals()
+#assertNotNull(anything which we not want null, can be username or anything)
+#assertNull()
+
+#there are many such assert methods
+
+#okay with only @Test we will not be able to taste as we must have got some beans autowired in the class and which we are using in our test method write but those will be null because we have not started the application context which we do when we run the application okay so
+#that's why we need to use @SpringBootTest annotation on the class where we want to run the test, this will start the application and will give us the bean so we can use them in our test methods right
+#in unit testing we test our function/components using different-different inputs and edge cases and check weather the function is working properly or not, we can later generate the unit test cases for our components using Kusho AI
+#we can also give message parameter in the assert methods
+
+#maven sure fire plugin is used to run test which is in the starter dependency which we do not need to add explicitly in the plugins
+
+#how to get code coverage report--
+#code coverage report tells us about how much code related to that api is tested
+#we need to install code coverage plugin-->then we just run with coverage-->we can also export the code coverage report to show our manager
+
+#@BeforeEach--is applied on the method just to run or initialize anything before running each test of that class
+#@BeforeAll--is applied on the method just to run or initialize anything before all the tests of that class
+#@AfterEach--
+#@AfterAll--
+
+
+#Mockito--
+
+#if we don't want to start the application context as it will load everything all the classes as it does when we run the application which will be load as we just want to do testing
+#okay so to tackle the above said problem we use mockito as we dont want to start the context then bean will not get injected which we will need in order to test, so instead of getting we can get mock of that bean using Mockito
+#now what is mock bean-->we can say basically a fake repository let say userRepository is there we create a fake repository and get a dummy user instead of fetching the user from the actual database which will take time, so this process of faking repository is called mocking which we can achieve using Mockito
+#let say if we are using @SpringBootTest okay and autowired the userDetailsServiceImpl and want to mock the beans which are inside this serviceImpl then we use @MockBean as we are still starting the application context and creating bean right so that is why @MockBean along with @SpringBootTest okay if we dont want to do start the application context at all then we will directly use @InjectMocks on the serviceImpl and @Mock on the dependency which we want to mock which are inside the serviceImpl
+#okay the above things happens like when the bean of serviceImpl get initialized by the context then @MockedBean will get injected inside that bean
+#okay we use when() and thenReturn() method inside the test at first as inside when we put the method which when called then going to mock the bean, and in thenReturn we can return the dummy user or data which is required to test that method
+#example when(userRepository.findByUsername(ArgumentsMatchers.anyString())).thenReturn(User.builder().username("name").password("pass").build())
+
+#@InjectMocks--we use on the service, whose dependency we want to mock, basically if we have mocked any dependency of any service then we have to use @InjectMock on that service and @Mock on that dependency which we have mocked
+#wait wait wait-->only this will not work alone without mock initialization okay that is why we have to use @BeforeEach on a method which has MockitoAnnotations.initMocks(this) which will initialize all the mocks of this class so no null pointer exception without initializing we cant do mocking, okay here we have initialized all the dependencies which are there inside the service or class(which is annotated with @InjectMocks), we do not need to initialize the service or class annotated with @InjectMocks as it get injected automatically
+
+
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #video-26
 #topic-Spring Boot Profiles
